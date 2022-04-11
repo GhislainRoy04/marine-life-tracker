@@ -2,18 +2,26 @@ import React from 'react';
 
 import {
     HashRouter,
-    Redirect,
     Route,
-    Switch
+    Switch,
 } from 'react-router-dom';
 
-export const App = () =>
-    <HashRouter>
+import Footer from 'common/components/Footer';
+import Header from 'common/components/Header';
 
-        <Switch>
-            <Redirect from='/' to='/welcome'/>
-        </Switch>
+import {Dashboard} from 'dashboard/components';
 
-    </HashRouter>;
+export const App = () => {
+
+    return (
+        <HashRouter>
+            <Header />
+                <Switch>
+                    <Route render={Dashboard}/>
+                </Switch>
+            <Footer />
+        </HashRouter>
+    );
+};
 
 export default App;

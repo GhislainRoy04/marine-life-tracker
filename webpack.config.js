@@ -18,12 +18,28 @@ module.exports = {
             },
             {
                 test: /\.css$/,
+                exclude: /(node_modules|flatpickr-theme-.+\.css)/,
                 use: ExtractTextPlugin.extract({
                     use: [
                         {
                             loader: 'css-loader',
                             options: {
                                 localIdentName: '[name]__[local]___[hash:base64:5]',
+                                modules: true,
+                            },
+                        },
+                    ],
+                }),
+            },
+            {
+                test: /\.css$/,
+                include: /(node_modules|flatpickr-theme-.+\.css)/,
+                use: ExtractTextPlugin.extract({
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                localIdentName: '[local]',
                                 modules: true,
                             },
                         },
@@ -65,10 +81,6 @@ module.exports = {
         }),
         new ExtractTextPlugin({
             filename: 'styles.[hash].css',
-        }),
-        new WorkboxPlugin.InjectManifest({
-            swSrc: './src/service-worker.js',
-            swDest: 'sw.js',
         }),
     ],
     resolve: {
